@@ -24,6 +24,12 @@ import ca.queensu.cs.dal.flex.i18n.Localizer;
  * See the <a href="../doc-files/copyright.html">copyright notice</a> for details.
  */
 
+
+
+// Import phase 2
+import TableModel;
+import ParseCsvByLine;
+
 public class TextEditor extends Application {
     private MenuDescriptor menu;
     /* package */ MainPanel mainPanel;

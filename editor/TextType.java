@@ -1,5 +1,7 @@
 // $Id: TextType.java,v 1.3 2012/10/24 17:06:40 dalamb Exp $
 // Import only those classes from edfmwk that are essential, for documentation purposes
+package editor;
+
 import java.awt.Component;
 import java.util.HashMap;
 import javax.swing.Action;

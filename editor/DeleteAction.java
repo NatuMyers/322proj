@@ -1,4 +1,6 @@
 // $Id: DeleteAction.java,v 1.0 2012/10/04 13:57:18 dalamb Exp $
+package editor;
+
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 // For documentation purposes, import only those classes from edfmwk that are

@@ -1,4 +1,6 @@
 // $Id: TextEditor.java,v 1.2 2012/12/14 20:23:49 dalamb Exp dalamb $
+package editor;
+
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
 // Import only those classes from edfmwk that are essential, for documentation purposes

@@ -1,4 +1,6 @@
 // $Id: package-info.java,v 1.1 2012/12/14 20:23:24 dalamb Exp $
+package editor;
+
 /**
  * An editor for text files, acting as an illustration of how to use the
  * {@linkplain ca.queensu.cs.dal.edfmwk editor framework}.

@@ -1,4 +1,6 @@
 // $Id: TextContents.java,v 1.0 2012/10/04 13:57:18 dalamb Exp $
+package editor;
+
 import java.io.*;
 //import java.util.*;
 import ca.queensu.cs.dal.edfmwk.doc.DocumentException;

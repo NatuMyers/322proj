@@ -1,4 +1,6 @@
 // $Id: TextDocument.java,v 1.0 2012/10/04 13:57:18 dalamb Exp $
+package editor;
+
 import java.awt.Container;
 import java.io.*;
 //import java.util.*;

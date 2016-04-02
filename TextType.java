@@ -144,9 +144,9 @@ public class TextType implements DocumentType {
         for (int i = 0; i < actionsArray.length; i++) {
             Action a = actionsArray[i];
             actions.put(a.getValue(Action.NAME), a);
-        }
-    } // setActions
- 
+       }
+    }  //end setActions
+     
     /**
      * Get the descriptor for the menu items appropriate for this type of
      * document.  For example, <code>"Image/Resize"</code> could be one such

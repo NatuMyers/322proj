@@ -3,6 +3,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import com.opencsv.CSVReader;
@@ -21,7 +23,7 @@ public class ParseCsvByLine
 	  
       //Build reader instance
       //Read csvToRead
-      CSVReader reader = new CSVReader(new InputStreamReader(csvToRead), ',', '"');
+	  CSVReader reader = new CSVReader(new InputStreamReader(csvToRead), ',', '"');
       
       //Read CSV line by line and store each line in an ArrayList<String[]>
       String[] nextLine;
@@ -33,8 +35,6 @@ public class ParseCsvByLine
     	  }
       }
      
-      //Reverse Rows
-      reverseRows(CSV);
       
       //Convert Array List into an Array
       String[][] csvArray =  new String[CSV.size()][];
@@ -52,11 +52,14 @@ public class ParseCsvByLine
 	}
 
    	// writeToCSVFile 
-	private static void writeToCSVFile(ArrayList<String[]> elements, String file) {
+	public static void writeToCSVFile(String[][] elements, OutputStream out) {
 		CSVWriter writer;
 		try {
-			writer = new CSVWriter(new FileWriter(file), ',');
-		     writer.writeAll(elements);
+			writer = new CSVWriter(new OutputStreamWriter(out));
+			for (int i=0; i < elements.length; i++){
+				String[] nextLine = elements[i];
+		                writer.writeNext(nextLine);
+			}
 			 writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -66,10 +69,10 @@ public class ParseCsvByLine
 
 	// reverseRows takes in ArrayList containing all rows, and reverses them one row
 	// at a time
-	private static void reverseRows(ArrayList<String[]> elements) {
+	private static void reverseRows(String[][] elements) {
 		
-		for (int i = 0 ; i<elements.size(); i++){
-			String[] newLine = elements.get(i);
+		for (int i = 0 ; i<elements.length; i++){
+			String[] newLine = elements[i];
 			for (int j = 0; j<newLine.length/2; j++){
 				String temp = newLine[j];
 				newLine[j] = newLine[newLine.length-1-j];

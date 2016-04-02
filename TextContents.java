@@ -1,6 +1,9 @@
 // $Id: TextContents.java,v 1.0 2012/10/04 13:57:18 dalamb Exp $
 import java.io.*;
 //import java.util.*;
+
+import javax.swing.JTable;
+
 import ca.queensu.cs.dal.edfmwk.doc.DocumentException;
 import ca.queensu.cs.dal.edfmwk.doc.StringSequence;
 import ca.queensu.cs.dal.edfmwk.doc.StringSequenceInputStream;
@@ -32,17 +35,18 @@ public class TextContents
      * @throws IOException if any I/O errors occur, in which case it will have
      * closed the stream.
      */
-    public void open(InputStream in)
+    public String[][] open(InputStream in)
 	throws IOException
     {
  
     	System.err.println("Open...");	
+	String [][] rows = null;
    	try {
-		String[][] rows = ParseCsvByLine.read(in);
-		TableModel.loadCSV(rows);
+		rows = ParseCsvByLine.read(in);
 	} catch (Exception e) {
 	 		e.printStackTrace();
 	}
+	return rows;
     } // end method open
 
     /**
@@ -53,6 +57,7 @@ public class TextContents
     public void write(Writer out) // throws IOException
     {
 	//System.err.println("Writing...");
+	System.out.println(out);
 	PrintWriter pr = new PrintWriter(out);
 	int docLength = getLength();
 	int lengthLeft = docLength;
@@ -78,14 +83,8 @@ public class TextContents
      * @throws IOException if any I/O errors occur, in which case it will have
      * closed the stream.
      */
-    public void save(OutputStream out) throws IOException {
-	try {
-	    write(new PrintWriter(out));
-	} catch (Exception e) {
-	    out.close();
-	    //	    throw new IOException(e);
-	    throw new IOException(e.getLocalizedMessage());
-	}
+    public void save(String[][] csv, OutputStream out) throws IOException {
+	    ParseCsvByLine.writeToCSVFile(csv, out);
     } // end save
 
     /**
@@ -106,7 +105,6 @@ public class TextContents
 	    throw new DocumentException(e);
 	}
     } // end getContentStream
-
     /**
      * Gets a substring of the text of the document.
      * A variant on {@link javax.swing.text.Document#getText} that raises no

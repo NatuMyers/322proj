@@ -2,6 +2,7 @@
 import java.awt.Container;
 import java.io.*;
 //import java.util.*;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 // Import only those classes from edfmwk that are essential, for documentation purposes
@@ -25,15 +26,19 @@ public class TextDocument
     private static int numRows = 20;
     private static int numColumns = 80;
     private TextContents contents;
+    public String[][] rows;
 
     /**
      * Constructs a document representation.
      * @param type The type of the document.
      */
     public TextDocument(DocumentType type) {
-	super(type);
-	contents = new TextContents();
-	contents.addDocumentListener(this);
+		super(type);
+		contents = new TextContents();
+		contents.addDocumentListener(this);
+	    JTextArea jta = new JTextArea(numRows, numColumns);
+	    jta.setDocument(contents);
+	    window = new JScrollPane(jta);
     } // end TextDocument
 
     // Text document change listeners: all invoke the framework's own document
@@ -68,7 +73,7 @@ public class TextDocument
      * closed the stream; isChanged() is unchanged.
      */
     public void save(OutputStream out) throws IOException {
-	contents.save(out);
+	ParseCsvByLine.writeToCSVFile(rows, out);
 	setChanged(false);
     } // save
 
@@ -94,8 +99,17 @@ public class TextDocument
     public void open(InputStream in)
 	throws IOException
     {
-    	System.out.println(in);
-	contents.open(in);
+	
+	String[][] csv = contents.open(in);
+	setRows(csv);
+	JTable table = null;
+		try {
+			table = TableModel.makeTable(csv);
+		} catch (Exception e) {
+// TODO Auto-generated catch block
+ 		e.printStackTrace();
+ 			}
+	window = new JScrollPane(table);
 	setChanged(false);
     } // open
 
@@ -104,5 +118,9 @@ public class TextDocument
      *    this package that need direct access (such as actions).
      */
     TextContents getContents() { return contents; }
+
+    public void setRows(String[][] csv){
+	    rows = csv;
+    }
 } // end class TextDocument
 
